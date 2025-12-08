@@ -149,6 +149,10 @@ We will review your submission based on:
 
 These are completely optional enhancements. Only consider these if you've completed all requirements for your level and have extra time:
 
+- **Demo Video or Screenshots**: Show your application in action
+  - Video: Quick Loom or screen recording demonstrating key features
+  - Screenshots: Key screens showing search, detail view, watchlist, etc.
+  - Either format is appreciated but not required
 - **Advanced Features**: Movie recommendations, watch history, search autocomplete, movie comparison
 - **Visual Polish**: Smooth transitions, animations, hover effects, cohesive design system, empty states
 - **Pagination/Infinite Scroll**: Handle large result sets efficiently

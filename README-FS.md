@@ -204,6 +204,10 @@ We will review your submission based on:
 
 These are completely optional. Only consider if you've completed all requirements for your level and have extra time:
 
+- **Demo Video or Screenshots**: Show your complete system in action
+  - Video: Quick Loom or screen recording demonstrating booking flow from frontend to backend
+  - Screenshots: Key screens showing seat selection, booking process, confirmation
+  - Either format is appreciated but not required
 - **Concurrent Booking Handling**: Implement race condition handling and locking mechanisms
 - **Real-time Updates**: WebSocket implementation for live seat availability across clients
 - **Booking Expiration**: Implement timeout that holds seats for X minutes

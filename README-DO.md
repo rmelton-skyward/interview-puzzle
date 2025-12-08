@@ -217,6 +217,11 @@ We will review your submission based on:
 
 These are completely optional. Only consider if you've completed all requirements for your level and have extra time:
 
+- **Demo Video or Screenshots**: Show your infrastructure deployment in action
+  - Video: Quick Loom or screen recording showing deployment process, accessing the app, showing infrastructure
+  - Screenshots: Infrastructure diagram, deployed app, monitoring dashboards, pipeline execution
+  - Terminal recording: asciinema showing IaC commands and deployment
+  - Either format is appreciated but not required
 - **Load Balancer**: Add load balancing layer
 - **DNS Setup**: Configure custom domain
 - **Database Backups**: Automated backup strategy

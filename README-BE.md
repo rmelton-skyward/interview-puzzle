@@ -154,6 +154,10 @@ We will review your submission based on:
 
 These are completely optional enhancements. Only consider these if you've completed all requirements for your level and have extra time:
 
+- **Demo Video or Screenshots**: Record a video showing your API in action or provide screenshots
+  - Video: Quick Loom recording or asciinema terminal recording showing API requests/responses
+  - Screenshots: Postman/curl examples showing your API working
+  - Either format is appreciated but not required
 - **Observability**: Implement logging, error tracking, and metrics
 - **Concurrent Booking Handling**: Implement race condition handling and locking mechanisms
 - **Dockerization**: Provide a Dockerfile and docker-compose.yml for easy local setup
