@@ -13,13 +13,14 @@ As federal AI implementation experts transforming CMS (Centers for Medicare & Me
 We want to be transparent about what to expect as you move through our interview process:
 
 1. **Application** - You submit your application through our formalized system
-2. **Coding Challenge** - Our recruiter sends you a link to this repository with your specific track
-3. **Technical Review** - Our engineering team reviews your submission for code quality, functionality, and adherence to requirements
-4. **First Interview** - You'll have an interview with technical and behavioral components where we discuss your solution and work experience
-5. **Deep Dive Interview** - A more in-depth technical conversation exploring your engineering approach and problem-solving
-6. **Decision** - We'll make a final hiring decision within one week of your final interview
+2. **Initial Screen Call** - You will be contacted to schedule an initial phone screen (30 minutes) with our Head of Talent
+3. **Coding Challenge** - Our Head of Talent will then send you a link to this repository with your specific track
+4. **Tech Challenge Review** - Our engineering team reviews your submission for code quality, functionality, and adherence to requirements
+5. **First Interview** - You'll have an interview with technical and behavioral components where we discuss your solution and work experience
+6. **Deep Dive Interview** - A more in-depth technical conversation exploring your engineering approach and problem-solving
+7. **Decision** - We'll make a final hiring decision within one week of your final interview
 
-This coding challenge is step 2 in our process. We appreciate the time you're investing and have designed this to be a meaningful but respectful use of your time.
+This coding challenge is step 3 in our process. We appreciate the time you're investing and have designed this to be a meaningful but respectful use of your time.
 
 ## Overview
 
