@@ -65,10 +65,12 @@ Your API should accept JSON input describing the venue layout and available seat
 
 The solution should find the best open seat (closest to the front & middle) given the input JSON and number of requested seats. Imagine a concert - people want to be as close as possible to the stage. **To keep things simple, any seat in a closer row will always be preferred to a seat in a further row.**
 
+**When multiple seats or seat groups are equidistant from the middle, prefer the option with the lower seat numbers (leftmost).**
+
 **Examples:**
-- For a venue with `10 rows` and `12 columns` with all seats open, the best seat would be either `A6` or `A7`
+- For a venue with `10 rows` and `12 columns` with all seats open, the best seat would be `A6` (ties are possible; `A6` and `A7` are equidistant, but `A6` has the lower number)
 - For `3 seats` requested in the same venue, the best would be `A5`, `A6`, and `A7` (contiguous)
-- For `5 columns` and `2 requested seats` - assuming row `A` is fully occupied and row `B` is fully open - the best seats would be `B2` and `B3`
+- For `5 columns` and `2 requested seats` - assuming row `A` is fully occupied and row `B` is fully open - the best seats would be `B2` and `B3` (note: `B3` and `B4` are also equidistant from center, but `B2` and `B3` have lower numbers)
 
 All results should be returned as JSON.
 
