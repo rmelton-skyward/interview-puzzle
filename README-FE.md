@@ -105,6 +105,18 @@ Use whatever frontend technologies you're most comfortable with. This is a demon
 
 You're welcome to use any of these technologies, but it's not required.
 
+## Handling Ambiguity
+
+**Real-world engineering often involves incomplete or unclear requirements.** When you encounter ambiguity in the challenge:
+
+- Use your best judgment to make reasonable decisions
+- Document your assumptions and reasoning in your README
+- Be prepared to explain your interpretation during the technical review
+
+Part of what we're evaluating is your ability to handle ambiguity, make thoughtful decisions, and articulate your reasoning. There may not always be a single "correct" answer - we want to see how you think through problems and justify your approach.
+
+**If something is truly blocking your progress**, reach out to your recruiting contact with specific questions.
+
 ## Evaluation Criteria
 
 We will review your submission based on:
@@ -116,6 +128,7 @@ We will review your submission based on:
 - **API Integration** - Do you handle API calls, errors, and edge cases properly?
 - **Testing** - Are your tests meaningful and comprehensive?
 - **Documentation** - Can someone else understand and run your code?
+- **Decision-making** - How well did you handle ambiguity and document your choices?
 
 ## Example User Flows
 

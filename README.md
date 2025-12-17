@@ -88,6 +88,18 @@ This means if you're applying for a senior position, you'll be implementing all 
 - Submit your solution as a **private GitHub repository**
 - Include a README with instructions to run your code locally
 
+### Handling Ambiguity
+
+**Real-world engineering often involves incomplete or unclear requirements.** When you encounter ambiguity in the challenge:
+
+- Use your best judgment to make reasonable decisions
+- Document your assumptions and reasoning in your README
+- Be prepared to explain your interpretation during the technical review
+
+Part of what we're evaluating is your ability to handle ambiguity, make thoughtful decisions, and articulate your reasoning. There may not always be a single "correct" answer - we want to see how you think through problems and justify your approach.
+
+**If something is truly blocking your progress**, reach out to your recruiting contact with specific questions.
+
 ### AI Usage Policy
 
 **We encourage the use of AI coding assistants** (GitHub Copilot, Claude, ChatGPT, etc.) during this challenge. Modern software engineering involves leveraging all available tools effectively.
