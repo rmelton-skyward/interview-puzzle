@@ -1,0 +1,64 @@
+// Seat selection system: venues, seats, bookings, and the booking <-> seat join table.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Venue {
+  id        String    @id @default(uuid())
+  name      String
+  rows      Int
+  columns   Int
+  createdAt DateTime  @default(now())
+  seats     Seat[]
+  bookings  Booking[]
+}
+
+enum SeatStatus {
+  AVAILABLE
+  RESERVED
+  BOOKED
+}
+
+model Seat {
+  id           String        @id @default(uuid())
+  venueId      String
+  venue        Venue         @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  row          String
+  column       Int
+  status       SeatStatus    @default(AVAILABLE)
+  bookingSeats BookingSeat[]
+
+  @@unique([venueId, row, column])
+  @@index([venueId, status])
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+}
+
+model Booking {
+  id        String        @id @default(uuid())
+  venueId   String
+  venue     Venue         @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  partySize Int
+  status    BookingStatus @default(CONFIRMED)
+  createdAt DateTime      @default(now())
+  seats     BookingSeat[]
+}
+
+// Join table: a booking can span multiple seats, a seat belongs to at most one active booking.
+model BookingSeat {
+  bookingId String
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  seatId    String  @unique
+  seat      Seat    @relation(fields: [seatId], references: [id], onDelete: Cascade)
+
+  @@id([bookingId, seatId])
+}

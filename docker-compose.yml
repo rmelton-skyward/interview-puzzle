@@ -1,0 +1,40 @@
+# PostgreSQL for local development — matches the "free" cost constraint from README-FS.md.
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: seat-selection-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: seat_selection
+    ports:
+      - '5434:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    container_name: seat-selection-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      # Connects over the internal docker network, not the host-mapped 5434 port.
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/seat_selection
+      CORS_ORIGIN: http://localhost:5173
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - '4000:4000'
+
+volumes:
+  pgdata:
