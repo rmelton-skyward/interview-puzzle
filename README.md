@@ -26,58 +26,21 @@ This coding challenge is step 3 in our process. We appreciate the time you're in
 
 This coding challenge is designed to evaluate your engineering skills through a practical problem-solving exercise. The specific challenge varies by track, but all are scoped to respect your time while demonstrating your abilities.
 
-## Choose Your Track
+## This Repository
 
-Please select the README that corresponds to the position you're applying for:
+This checkout contains a completed full-stack venue seat-selection and booking application. The
+browser client is built with React, TypeScript, and Vite; the API uses Express, Prisma, and
+PostgreSQL. The deterministic selector recommends contiguous available seats, while the optional
+AI assistant only extracts party-size preferences.
 
-### Backend Engineering
-**→ [README-BE.md](README-BE.md)** - Build a REST API for seat selection
+- [Setup and run instructions](Setup-Instructions.md)
+- [System architecture and request flows](Architecture.md)
+- [Backend implementation and API guide](backend/README.md)
+- [Frontend components and state flow](frontend/README.md)
 
-Build a concert venue seat selection system that finds the best available seats for groups.
-
-Technologies you might use: Python, FastAPI, TypeScript, Express, Node.js
-
-### Frontend Engineering
-**→ [README-FE.md](README-FE.md)** - Build a movie exploration application
-
-Build a movie search and discovery application using The Movie Database (TMDB) API.
-
-Technologies you might use: React, TypeScript, Vite, HTML/CSS
-
-### Fullstack Engineering
-**→ [README-FS.md](README-FS.md)** - Build a complete seat selection system
-
-Build both the backend API and frontend interface for a concert venue seat booking system.
-
-Technologies you might use: Python/FastAPI + React, Node.js/Express + React, or your preferred stack
-
-### DevOps Engineering
-**→ [README-DO.md](README-DO.md)** - Deploy infrastructure as code
-
-Create infrastructure as code to deploy a web application with proper automation, security, and monitoring.
-
-Technologies you might use: Terraform, AWS/GCP/Azure, Docker, Jenkins, GitHub Actions
-
----
-
-**Mix and Match:**
-You're welcome to combine challenges or add elements from multiple tracks to showcase your skills! For example:
-- Backend engineers can add the DevOps deployment component
-- Frontend engineers can build the fullstack version
-- DevOps engineers can deploy one of the other applications
-- Create your own combination to highlight your strengths
-
-The goal is to demonstrate your abilities - use the structure that works best for you!
-
-## Understanding the Stacked Format
-
-The requirements in each track ([README-BE.md](README-BE.md), [README-FE.md](README-FE.md), [README-FS.md](README-FS.md), and [README-DO.md](README-DO.md)) are presented in a **stacked format** based on the position you're applying for:
-
-- **Junior positions** complete the base requirements
-- **Mid-Level positions** complete the base requirements PLUS the mid-level additions
-- **Senior positions** complete everything (base + mid-level + senior additions)
-
-This means if you're applying for a senior position, you'll be implementing all three levels of requirements. The format makes it easy to see what's expected at each level while building on the foundation.
+Venue names are limited to 30 characters and unique case-insensitively. Layouts allow up to 50 rows
+and 1,000 columns. Docker Compose serves the frontend at `http://localhost:5173` by default; the
+setup guide documents port overrides.
 
 ## Important Notes
 

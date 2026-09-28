@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Seat Recommendation and Booking",
+    "output": "docs/diagrams/seat-recommendation-and-booking.html",
+    "viewBox": [1080, 620],
+    "column_fit": "spread",
+    "quality_profile": "showcase",
+    "locale": "en"
+  },
+  "participants": [
+    { "id": "user", "type": "external", "label": "User", "sublabel": "attendee" },
+    { "id": "browser", "type": "frontend", "label": "Browser", "sublabel": "React UI" },
+    { "id": "api", "type": "backend", "label": "API", "sublabel": "Express service" },
+    { "id": "database", "type": "database", "label": "PostgreSQL", "sublabel": "venue + booking data" }
+  ],
+  "messages": [
+    { "id": "request-seats", "from": "user", "to": "browser", "y": 160, "label": "Request recommendations", "variant": "default" },
+    { "id": "recommendation-call", "from": "browser", "to": "api", "y": 189, "label": "POST /api/venues/:id/best-seats", "variant": "emphasis" },
+    { "id": "availability-query", "from": "api", "to": "database", "y": 218, "label": "Read venue + available seats", "variant": "default" },
+    { "id": "availability-response", "from": "database", "to": "api", "y": 247, "label": "Available seat records", "variant": "return" },
+    { "id": "recommendation-response", "from": "api", "to": "browser", "y": 276, "label": "200 recommendation JSON", "variant": "return" },
+    { "id": "show-recommendation", "from": "browser", "to": "user", "y": 305, "label": "Highlight recommended seats", "variant": "return" },
+    { "id": "booking-call", "from": "browser", "to": "api", "y": 334, "label": "Click Book: POST /api/bookings with seat IDs", "variant": "emphasis" },
+    { "id": "booking-transaction", "from": "api", "to": "database", "y": 363, "label": "Transaction: claim AVAILABLE seats; create booking", "variant": "emphasis", "note": "The API verifies the affected-row count before inserting. A mismatch rolls back and returns 409." },
+    { "id": "booking-commit", "from": "database", "to": "api", "y": 392, "label": "COMMIT; booking + BOOKED seats", "variant": "return" },
+    { "id": "booking-response", "from": "api", "to": "browser", "y": 421, "label": "201 booking JSON", "variant": "return" },
+    { "id": "refresh-call", "from": "browser", "to": "api", "y": 450, "label": "GET /api/venues/:id", "variant": "default" },
+    { "id": "refresh-query", "from": "api", "to": "database", "y": 479, "label": "Read current seat map", "variant": "default" },
+    { "id": "refresh-result", "from": "database", "to": "api", "y": 508, "label": "Seat map with BOOKED statuses", "variant": "return" },
+    { "id": "refresh-response", "from": "api", "to": "browser", "y": 537, "label": "200 refreshed map + confirmation", "variant": "return" }
+  ],
+  "activations": [
+    { "participant": "browser", "from": 187, "to": 542, "type": "frontend" },
+    { "participant": "api", "from": 189, "to": 539, "type": "backend" },
+    { "participant": "database", "from": 216, "to": 510, "type": "database" }
+  ]
+}
