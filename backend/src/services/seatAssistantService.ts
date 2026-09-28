@@ -1,10 +1,11 @@
 import OpenAI from 'openai';
+import { environment } from '../config/environment.js';
 import { AiServiceError, ValidationError } from '../errors.js';
 import { SeatAssistantPreferencesSchema } from '../schemas/venue.js';
 import { getBestSeats } from './venueService.js';
 
-const openai = process.env.OPENAI_API_KEY
-  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+const openai = environment.OPENAI_API_KEY
+  ? new OpenAI({ apiKey: environment.OPENAI_API_KEY })
   : null;
 
 export async function findSeatsFromNaturalLanguage(venueId: string, prompt: string) {
@@ -15,7 +16,7 @@ export async function findSeatsFromNaturalLanguage(venueId: string, prompt: stri
   let response;
   try {
     response = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL ?? 'gpt-4o-mini',
+      model: environment.OPENAI_MODEL,
       response_format: { type: 'json_object' },
       temperature: 0,
       messages: [
@@ -31,7 +32,13 @@ export async function findSeatsFromNaturalLanguage(venueId: string, prompt: stri
     throw new AiServiceError('The AI provider could not process the seat request');
   }
 
-  const content = response.choices[0]?.message.content;
+  const [choice] = response.choices;
+  if (!choice) {
+    throw new AiServiceError('The AI provider returned an empty response');
+  }
+
+  const { message } = choice;
+  const { content } = message;
   if (!content) {
     throw new AiServiceError('The AI provider returned an empty response');
   }

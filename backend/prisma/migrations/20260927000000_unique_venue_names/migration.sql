@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "Venue_name_key" ON "Venue"("name");

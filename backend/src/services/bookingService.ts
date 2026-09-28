@@ -1,7 +1,7 @@
 import { prisma } from '../db/client.js';
 import { ConflictError, NotFoundError, ValidationError } from '../errors.js';
 import { createBooking as createBookingRecord, findBookingById } from '../repositories/bookingRepository.js';
-import { lockSeatsForUpdate, markSeatsBooked } from '../repositories/seatRepository.js';
+import { findSeatsByIds, markSeatsBooked } from '../repositories/seatRepository.js';
 import { findVenueById } from '../repositories/venueRepository.js';
 
 export interface CreateBookingParams {
@@ -10,14 +10,15 @@ export interface CreateBookingParams {
 }
 
 /**
- * Creates a booking for the given seats inside a single transaction: re-reads seat status
- * to guard against a race with another booking, then marks seats BOOKED and inserts the
- * booking record atomically.
+ * Creates a booking atomically, using a conditional seat update to reject concurrent claims.
  */
 export async function createBooking(params: CreateBookingParams) {
   const { venueId, seatIds } = params;
   if (seatIds.length === 0) {
     throw new ValidationError('At least one seat id is required to create a booking');
+  }
+  if (new Set(seatIds).size !== seatIds.length) {
+    throw new ValidationError('Seat ids must be unique');
   }
 
   return prisma.$transaction(async (tx) => {
@@ -26,18 +27,18 @@ export async function createBooking(params: CreateBookingParams) {
       throw new NotFoundError(`Venue ${venueId} not found`);
     }
 
-    const seats = await lockSeatsForUpdate(tx, seatIds);
+    const seats = await findSeatsByIds(seatIds, tx);
     if (seats.length !== seatIds.length) {
       throw new NotFoundError('One or more requested seats do not exist');
     }
     if (seats.some((seat) => seat.venueId !== venueId)) {
       throw new ValidationError('All seats must belong to the specified venue');
     }
-    if (seats.some((seat) => seat.status !== 'AVAILABLE')) {
+    const updatedSeats = await markSeatsBooked(tx, venueId, seatIds);
+    if (updatedSeats.count !== seatIds.length) {
       throw new ConflictError('One or more requested seats are no longer available');
     }
 
-    await markSeatsBooked(tx, seatIds);
     return createBookingRecord(tx, { venueId, partySize: seatIds.length, seatIds });
   });
 }

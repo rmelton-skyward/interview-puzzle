@@ -21,7 +21,7 @@ export interface BestSeatsResult {
 /**
  * Finds the best contiguous block of `partySize` available seats for a venue.
  *
- * Rules (from README-BE.md):
+ * Selection rules:
  * - A seat in a closer (smaller-index) row always beats any seat in a farther row.
  * - For a party size > 1, seats must be contiguous within the same row.
  * - Ties (equidistant from the row's center) are broken by preferring the lower

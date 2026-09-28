@@ -1,14 +1,10 @@
 import type { Db } from '../db/client.js';
 import { prisma } from '../db/client.js';
 
-/** Reads the given seats within a transaction so their status can be checked before booking. */
-export async function lockSeatsForUpdate(tx: Db, seatIds: string[]) {
-  return tx.seat.findMany({ where: { id: { in: seatIds } } });
-}
-
-export async function markSeatsBooked(tx: Db, seatIds: string[]) {
+/** Claims only seats that are still available; the affected count detects concurrent claims. */
+export async function markSeatsBooked(tx: Db, venueId: string, seatIds: string[]) {
   return tx.seat.updateMany({
-    where: { id: { in: seatIds } },
+    where: { id: { in: seatIds }, venueId, status: 'AVAILABLE' },
     data: { status: 'BOOKED' },
   });
 }

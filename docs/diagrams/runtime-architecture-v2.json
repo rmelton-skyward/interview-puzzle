@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Seat Selection Runtime Architecture",
+    "output": "docs/diagrams/runtime-architecture.html",
+    "viewBox": [1160, 520],
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "request-path", "label": "Request path", "focus": ["browser", "frontend", "api", "controls", "services", "prisma", "postgres"], "note": "Follow a request from the browser through the API to persisted venue data." },
+      { "id": "booking", "label": "Booking and state", "focus": ["api", "controls", "services", "prisma", "postgres"], "note": "See validation and atomic seat booking against PostgreSQL." },
+      { "id": "optional-ai", "label": "Optional AI", "focus": ["browser", "frontend", "api", "services", "openai"], "note": "AI only extracts preferences; deterministic code chooses seats." }
+    ]
+  },
+  "components": [
+    { "id": "browser", "type": "external", "label": "Browser", "sublabel": "user session", "pos": [32, 190], "size": [110, 66] },
+    { "id": "frontend", "type": "frontend", "label": "React + Nginx", "sublabel": "static UI / API proxy", "pos": [178, 190], "size": [125, 66] },
+    { "id": "api", "type": "backend", "label": "Express API", "sublabel": "Node.js 20 :4000", "pos": [335, 190], "size": [110, 66] },
+    { "id": "controls", "type": "security", "label": "Request controls", "sublabel": "CORS · rate limit · Zod", "pos": [485, 190], "size": [130, 66] },
+    { "id": "services", "type": "backend", "label": "Domain services", "sublabel": "venue · booking · AI", "pos": [650, 190], "size": [130, 66] },
+    { "id": "prisma", "type": "backend", "label": "Prisma repos", "sublabel": "data access", "pos": [820, 190], "size": [120, 66] },
+    { "id": "postgres", "type": "database", "label": "PostgreSQL", "sublabel": "persistent state", "pos": [980, 190], "size": [120, 66] },
+    { "id": "openai", "type": "external", "label": "OpenAI API", "sublabel": "optional prompt parsing", "pos": [820, 350], "size": [145, 66] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Docker Compose runtime", "wraps": ["frontend", "api", "controls", "services", "prisma", "postgres"], "pad": 24 },
+    { "kind": "security-group", "label": "Backend trust boundary", "wraps": ["api", "controls", "services", "prisma", "postgres"], "pad": 14 }
+  ],
+  "connections": [
+    { "id": "browser-to-frontend", "from": "browser", "to": "frontend", "label": "HTTP", "variant": "emphasis", "labelDy": 57 },
+    { "id": "frontend-to-api", "from": "frontend", "to": "api", "label": "REST / JSON", "variant": "emphasis", "labelDy": 57 },
+    { "id": "api-to-controls", "from": "api", "to": "controls", "label": "middleware", "labelDy": 57 },
+    { "id": "controls-to-services", "from": "controls", "to": "services", "label": "validated", "labelDy": 57 },
+    { "id": "services-to-prisma", "from": "services", "to": "prisma", "label": "queries", "variant": "emphasis", "labelDy": -20 },
+    { "id": "prisma-to-postgres", "from": "prisma", "to": "postgres", "label": "SQL", "variant": "emphasis", "labelDy": 57 },
+    { "id": "services-to-openai", "from": "services", "to": "openai", "label": "optional", "variant": "dashed", "labelDy": 24 }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Runtime path",
+      "items": [
+        "Compose runs Nginx, Express API, and PostgreSQL",
+        "Nginx serves React and proxies /api and /docs"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Trust boundaries",
+      "items": [
+        "Browser and OpenAI are outside the Compose network; PostgreSQL is also host-published for local development",
+        "The API applies CORS, rate limiting, Zod validation, and optional ADMIN_TOKEN protection"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Booking and recommendations",
+      "items": [
+        "Recommendations use a pure deterministic algorithm and do not reserve seats; AI only extracts preferences",
+        "Booking conditionally claims AVAILABLE seats in a transaction; count mismatch rolls back with 409"
+      ]
+    }
+  ]
+}

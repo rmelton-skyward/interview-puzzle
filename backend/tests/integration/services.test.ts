@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { prisma } from '../../src/db/client.js';
-import { ConflictError, NotFoundError } from '../../src/errors.js';
+import { ConflictError, NotFoundError, ValidationError } from '../../src/errors.js';
 import { createBooking, getBooking } from '../../src/services/bookingService.js';
 import { getBestSeats, getVenueStatus } from '../../src/services/venueService.js';
 
@@ -62,13 +62,19 @@ describe('bookingService', () => {
     expect(bookedSeats.every((s) => s.status === 'BOOKED')).toBe(true);
   });
 
-  it('rejects booking a seat that is already booked (race-condition guard)', async () => {
+  it('rejects booking a seat that is already booked', async () => {
     const seats = await prisma.seat.findMany({ where: { venueId, row: 'a' }, orderBy: { column: 'asc' } });
     const alreadyBookedSeatId = seats.find((s) => s.status === 'BOOKED')!.id;
 
     await expect(
       createBooking({ venueId, seatIds: [alreadyBookedSeatId] }),
     ).rejects.toThrow(ConflictError);
+  });
+
+  it('rejects duplicate seat IDs before opening a transaction', async () => {
+    await expect(
+      createBooking({ venueId, seatIds: ['duplicate-seat', 'duplicate-seat'] }),
+    ).rejects.toThrow(ValidationError);
   });
 
   it('getBooking returns the booking with its seats', async () => {

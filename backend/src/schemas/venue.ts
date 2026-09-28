@@ -33,9 +33,9 @@ export const VenueSchema = z.object({
 export type Venue = z.infer<typeof VenueSchema>;
 
 export const CreateVenueRequestSchema = z.object({
-  name: z.string().trim().min(1).max(100),
-  rows: z.number().int().positive().max(100),
-  columns: z.number().int().positive().max(100),
+  name: z.string().trim().min(1).max(30),
+  rows: z.number().int().positive().max(50),
+  columns: z.number().int().positive().max(1000),
 });
 export type CreateVenueRequest = z.infer<typeof CreateVenueRequestSchema>;
 
@@ -50,7 +50,7 @@ export const SeatAssistantPreferencesSchema = z.object({
 export type SeatAssistantPreferences = z.infer<typeof SeatAssistantPreferencesSchema>;
 
 /**
- * The full input payload as documented in README-BE.md: venue config + a map of seat id -> seat.
+ * Venue layout plus a map of seat IDs to seat records, consumed by the pure selector.
  */
 export const VenueSeatMapSchema = z.object({
   venue: VenueSchema,

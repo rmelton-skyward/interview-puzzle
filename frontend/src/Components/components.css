@@ -1,0 +1,844 @@
+.app-shell {
+    width: min(100% - 2rem, 80rem);
+    min-height: 100vh;
+    margin-inline: auto;
+    padding-block: 2rem;
+}
+
+.page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-heading {
+    min-width: 0;
+}
+
+.page-eyebrow,
+.section-eyebrow {
+    margin: 0;
+    color: #efc16b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+.page-title {
+    margin: 0.5rem 0 0;
+    color: #fff4dc;
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.page-description {
+    max-width: 38rem;
+    margin: 0.5rem 0 0;
+    color: #c8b9a4;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.panel {
+    border: 1px solid rgba(255, 244, 220, 0.1);
+    border-radius: 1rem;
+    background: #211b17;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.12);
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+    padding: 0.625rem 1rem;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    cursor: pointer;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+
+.button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+:where(button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 3px solid #f8d47a;
+    outline-offset: 3px;
+}
+
+.button-primary {
+    background: #efb84b;
+    color: #25170d;
+}
+
+.button-primary:hover:not(:disabled) {
+    background: #f8d47a;
+}
+
+.button-secondary {
+    border-color: rgba(255, 244, 220, 0.2);
+    background: #211b17;
+    color: #fff0ca;
+}
+
+.button-secondary:hover:not(:disabled) {
+    border-color: #efb84b;
+    background: #2b2119;
+}
+
+.button-close {
+    border-color: rgba(255, 244, 220, 0.15);
+    background: transparent;
+    padding: 0.375rem 0.75rem;
+    color: rgba(255, 240, 202, 0.7);
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+.button-close:hover {
+    border-color: #efb84b;
+    color: #fff0ca;
+}
+
+.button-assistant {
+    border-color: rgba(239, 184, 75, 0.4);
+    background: rgba(239, 184, 75, 0.1);
+    color: #fff0ca;
+}
+
+.button-assistant:hover:not(:disabled) {
+    background: rgba(239, 184, 75, 0.2);
+}
+
+.ai-button-mark {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+}
+
+.button-danger {
+    border-color: rgba(253, 164, 175, 0.3);
+    background: rgba(244, 63, 94, 0.1);
+    color: #ffe4e8;
+}
+
+.button-danger:hover:not(:disabled) {
+    background: rgba(244, 63, 94, 0.2);
+}
+
+.manage-dialog {
+    width: min(42rem, calc(100vw - 2rem));
+    max-width: none;
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    border: 1px solid rgba(255, 244, 220, 0.2);
+    border-radius: 1rem;
+    background: transparent;
+    color: #fff4dc;
+    padding: 0;
+}
+
+.manage-dialog[hidden] {
+    display: none;
+}
+
+.manage-dialog::backdrop {
+    background: rgba(7, 8, 10, 0.78);
+    backdrop-filter: blur(4px);
+}
+
+.manage-panel {
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    border-radius: inherit;
+    background: #211b17;
+    padding: 1.5rem;
+}
+
+.manage-header,
+.seat-map-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.manage-header {
+    align-items: center;
+}
+
+.manage-title,
+.section-title {
+    margin: 0.5rem 0 0;
+    color: #fff4dc;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.section-eyebrow {
+    color: rgba(255, 220, 158, 0.58);
+    letter-spacing: 0.22em;
+}
+
+.manage-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.manage-subpanel {
+    min-width: 0;
+}
+
+.manage-subpanel-danger {
+    border-top: 1px solid rgba(253, 164, 175, 0.3);
+    padding-top: 1.25rem;
+}
+
+.delete-confirmation {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    color: #ffe4e8;
+    font-size: 0.875rem;
+}
+
+.delete-venue-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.delete-venue-select-field {
+    width: min(100%, 22rem);
+    flex: 0 1 22rem;
+}
+
+.delete-venue-actions {
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: flex-end;
+    padding-bottom: 0.125rem;
+}
+
+.button-small {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+.subpanel-title {
+    margin: 0;
+    color: #fff4dc;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.form-field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #eadcc6;
+    font-size: 0.875rem;
+}
+
+.field-label {
+    color: rgba(255, 240, 202, 0.75);
+    font-weight: 500;
+}
+
+.field-instruction {
+    color: #9f9181;
+    font-size: 0.75rem;
+    line-height: 1.4;
+}
+
+.form-field-wide {
+    grid-column: 1 / -1;
+}
+
+.form-control {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid rgba(255, 244, 220, 0.15);
+    border-radius: 0.625rem;
+    background: #11100f;
+    padding: 0.5rem 0.75rem;
+    color: #fff4dc;
+    font: inherit;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: #8f8172;
+}
+
+.form-control:focus {
+    border-color: #efb84b;
+}
+
+.form-control:focus-visible {
+    box-shadow: 0 0 0 2px #211b17, 0 0 0 5px #f8d47a;
+}
+
+.form-control-select {
+    border-radius: 0.75rem;
+    padding-block: 0.625rem;
+}
+
+.form-control-party-size {
+    width: 7rem;
+}
+
+.status-message,
+.status-error,
+.helper-text,
+.manage-description {
+    margin: 0.75rem 0 0;
+    font-size: 0.875rem;
+}
+
+.status-message {
+    color: #6ee7a0;
+}
+
+.status-error {
+    color: #fda4af;
+}
+
+.helper-text {
+    color: #9f9181;
+    font-size: 0.75rem;
+}
+
+.manage-description {
+    color: #c8b9a4;
+    line-height: 1.5;
+}
+
+.venue-management-notice {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+    border: 1px solid rgba(110, 231, 160, 0.4);
+    border-radius: 0.75rem;
+    background: rgba(16, 90, 59, 0.3);
+    padding: 1rem;
+    color: #b8f5cf;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+.notice-dismiss {
+    display: inline-grid;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 2rem;
+    place-items: center;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.notice-dismiss:hover {
+    border-color: currentColor;
+}
+
+.control-panel {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+}
+
+.control-fields {
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.loading-message {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    color: rgba(255, 244, 220, 0.6);
+}
+
+.no-venues-state {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+}
+
+.no-venues-title {
+    margin: 0.5rem 0 0;
+    color: #fff4dc;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.venue-actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+}
+
+.assistant-dialog {
+    width: min(34rem, calc(100vw - 2rem));
+    max-width: none;
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    border: 1px solid rgba(255, 244, 220, 0.2);
+    border-radius: 1rem;
+    background: transparent;
+    color: #fff4dc;
+    padding: 0;
+}
+
+.assistant-dialog[hidden] {
+    display: none;
+}
+
+.assistant-dialog::backdrop {
+    background: rgba(7, 8, 10, 0.78);
+    backdrop-filter: blur(4px);
+}
+
+.booking-dialog {
+    width: min(34rem, calc(100vw - 2rem));
+    max-width: none;
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    border: 1px solid rgba(255, 244, 220, 0.2);
+    border-radius: 1rem;
+    background: transparent;
+    color: #fff4dc;
+    padding: 0;
+}
+
+.booking-dialog[hidden] {
+    display: none;
+}
+
+.booking-dialog::backdrop {
+    background: rgba(7, 8, 10, 0.78);
+    backdrop-filter: blur(4px);
+}
+
+.booking-modal {
+    border-radius: inherit;
+    background: #211b17;
+    padding: 1.5rem;
+}
+
+.booking-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.booking-confirmation-message {
+    margin: 1.25rem 0 0;
+    color: #b8f5cf;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.assistant-modal {
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    border-radius: inherit;
+    background: #211b17;
+    padding: 1.5rem;
+}
+
+.assistant-modal-header,
+.assistant-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.assistant-modal-form {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.assistant-modal-actions {
+    justify-content: flex-end;
+}
+
+.error-banner {
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(251, 113, 133, 0.4);
+    border-radius: 0.75rem;
+    background: rgba(244, 63, 94, 0.1);
+    padding: 1rem;
+    color: #ffe4e8;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(16rem, 0.7fr);
+    gap: 1.5rem;
+}
+
+.seat-map {
+    overflow-x: auto;
+    border: 1px solid rgba(255, 244, 220, 0.1);
+    border-radius: 1.75rem;
+    background: #11100f;
+    padding: 1rem;
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.3);
+}
+
+.seat-map-header {
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.seat-map-title {
+    margin: 0.25rem 0 0;
+    color: #fff4dc;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.seat-map-size {
+    border: 1px solid rgba(255, 244, 220, 0.15);
+    border-radius: 999px;
+    background: rgba(255, 244, 220, 0.05);
+    padding: 0.25rem 0.75rem;
+    color: rgba(255, 240, 202, 0.7);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.seat-map-content {
+    width: max-content;
+    min-width: 100%;
+}
+
+.seat-rows {
+    min-width: max-content;
+    padding-inline: 0.25rem;
+}
+
+.seat-map-message {
+    color: #cbd5e1;
+    font-size: 0.875rem;
+}
+
+.stage-label {
+    color: #17120f;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.45em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.seat-row {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.75rem;
+}
+
+.seat-row:first-child {
+    margin-top: 0;
+}
+
+.seat-row-label {
+    position: absolute;
+    right: 100%;
+    width: 1.25rem;
+    margin-right: 0.75rem;
+    color: rgba(255, 240, 202, 0.45);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.seat-row-items {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.seat-tile {
+    position: relative;
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 2rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #77624b;
+    border-radius: 0.65rem 0.65rem 0.6rem 0.6rem;
+    background: #29221d;
+    color: rgba(255, 244, 220, 0.75);
+    font: inherit;
+    font-size: 0.625rem;
+    font-weight: 600;
+    cursor: default;
+    transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.seat-tile::after {
+    position: absolute;
+    right: 0.2rem;
+    bottom: -0.22rem;
+    left: 0.2rem;
+    height: 0.28rem;
+    border-radius: 0 0 0.4rem 0.4rem;
+    background: currentColor;
+    content: '';
+    opacity: 0.28;
+}
+
+.seat-recommended {
+    border-color: #f8d47a;
+    background: #efb84b;
+    color: #25170d;
+    box-shadow: 0 0 18px rgba(239, 184, 75, 0.55);
+}
+
+.seat-reserved {
+    border-color: #d6a55a;
+    background: #75552f;
+    color: #fff4dc;
+    cursor: not-allowed;
+}
+
+.seat-booked {
+    border-color: #6f3d38;
+    background: #4a2928;
+    color: #d8aaa3;
+    cursor: default;
+    opacity: 0.8;
+}
+
+.seat-aisle-gap {
+    margin-right: 1.25rem;
+}
+
+.reservation-panel {
+    padding: 1.25rem;
+}
+
+.recommended-label {
+    margin: 1.25rem 0 0;
+    color: #c8b9a4;
+    font-size: 0.875rem;
+}
+
+.recommended-list {
+    margin-top: 0.5rem;
+    border: 1px solid rgba(239, 184, 75, 0.3);
+    border-radius: 0.75rem;
+    background: rgba(239, 184, 75, 0.1);
+    padding: 0.5rem 0.75rem;
+    color: #fff0ca;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.book-button {
+    width: 100%;
+    margin-top: 1.25rem;
+}
+
+.empty-reservation {
+    margin: 1rem 0 0;
+    color: #c8b9a4;
+    font-size: 0.875rem;
+}
+
+.seat-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1.75rem;
+    border-top: 1px solid rgba(255, 244, 220, 0.1);
+    padding-top: 1rem;
+    color: rgba(255, 244, 220, 0.55);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+}
+
+.legend-dot-available {
+    border: 1px solid #77624b;
+    background: #29221d;
+}
+
+.legend-dot-recommended {
+    background: #efb84b;
+    box-shadow: 0 0 8px rgba(239, 184, 75, 0.7);
+}
+
+.legend-dot-reserved {
+    background: #75552f;
+}
+
+.legend-dot-booked {
+    background: #4a2928;
+}
+
+.movie-screen {
+    position: relative;
+    max-width: 42rem;
+    margin: 0 auto 2rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, #f0c574 18%, #fff0bd 50%, #f0c574 82%, transparent);
+    padding: 0.55rem 1rem;
+    box-shadow: 0 0 25px rgba(239, 184, 75, 0.2), 0 12px 36px rgba(239, 184, 75, 0.12);
+    transform: perspective(140px) rotateX(-8deg);
+}
+
+.movie-screen::after {
+    position: absolute;
+    inset: 100% 8% auto;
+    height: 2.5rem;
+    background: linear-gradient(180deg, rgba(240, 197, 116, 0.18), transparent);
+    content: '';
+    pointer-events: none;
+}
+
+@media (max-width: 767px) {
+    .app-shell {
+        width: min(100% - 1.5rem, 80rem);
+        padding-block: 1rem;
+    }
+
+    .page-header {
+        align-items: flex-start;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .manage-grid,
+    .content-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .control-panel,
+    .control-fields {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .venue-actions {
+        width: 100%;
+    }
+
+    .venue-actions .button {
+        flex: 1;
+    }
+
+    .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .delete-venue-controls {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .delete-venue-select-field {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .delete-venue-actions {
+        justify-content: flex-end;
+    }
+
+    .manage-panel {
+        padding: 1rem;
+    }
+
+    .assistant-modal {
+        padding: 1rem;
+    }
+
+    .booking-modal {
+        padding: 1rem;
+    }
+
+    .assistant-modal-actions .button {
+        flex: 1;
+    }
+
+    .no-venues-state {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+.icon-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 2.5rem;
+    padding: 0;
+}
+

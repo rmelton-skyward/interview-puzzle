@@ -31,13 +31,9 @@ export const bookingRouter = Router();
  *       409:
  *         description: One or more seats are no longer available
  */
-bookingRouter.post('/', validateBody(CreateBookingRequestSchema), async (req, res, next) => {
-  try {
-    const booking = await createBooking(req.body);
-    res.status(201).json(booking);
-  } catch (err) {
-    next(err);
-  }
+bookingRouter.post('/', validateBody(CreateBookingRequestSchema), async (req, res) => {
+  const booking = await createBooking(req.body);
+  res.status(201).json(booking);
 });
 
 /**
@@ -57,11 +53,7 @@ bookingRouter.post('/', validateBody(CreateBookingRequestSchema), async (req, re
  *       404:
  *         description: Booking not found
  */
-bookingRouter.get<{ id: string }>('/:id', async (req, res, next) => {
-  try {
-    const booking = await getBooking(req.params.id);
-    res.json(booking);
-  } catch (err) {
-    next(err);
-  }
+bookingRouter.get<{ id: string }>('/:id', async (req, res) => {
+  const booking = await getBooking(req.params.id);
+  res.json(booking);
 });

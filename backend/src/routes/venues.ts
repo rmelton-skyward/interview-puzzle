@@ -1,20 +1,15 @@
 import { Router } from 'express';
-import { listVenues } from '../repositories/venueRepository.js';
 import { requireAdmin } from '../middleware/adminAuth.js';
 import { validateBody } from '../middleware/validate.js';
 import { BestSeatsRequestSchema, CreateVenueRequestSchema, SeatAssistantRequestSchema } from '../schemas/venue.js';
 import { findSeatsFromNaturalLanguage } from '../services/seatAssistantService.js';
-import { createVenue, getBestSeats, getVenueStatus, removeVenue } from '../services/venueService.js';
+import { createVenue, getBestSeats, getVenueStatus, getVenues, removeVenue } from '../services/venueService.js';
 
 export const venueRouter = Router();
 
-venueRouter.get('/', async (_req, res, next) => {
-  try {
-    const venues = await listVenues();
-    res.json(venues);
-  } catch (err) {
-    next(err);
-  }
+venueRouter.get('/', async (_req, res) => {
+  const venues = await getVenues();
+  res.json(venues);
 });
 
 /**
@@ -31,20 +26,17 @@ venueRouter.get('/', async (_req, res, next) => {
  *             type: object
  *             required: [name, rows, columns]
  *             properties:
- *               name: { type: string, minLength: 1, maxLength: 100 }
- *               rows: { type: integer, minimum: 1, maximum: 100 }
- *               columns: { type: integer, minimum: 1, maximum: 100 }
+ *               name: { type: string, minLength: 1, maxLength: 30 }
+ *               rows: { type: integer, minimum: 1, maximum: 50 }
+ *               columns: { type: integer, minimum: 1, maximum: 1000 }
  *     responses:
  *       201: { description: Venue created }
  *       400: { description: Invalid venue configuration }
+ *       409: { description: A venue with this name already exists }
  */
-venueRouter.post('/', requireAdmin, validateBody(CreateVenueRequestSchema), async (req, res, next) => {
-  try {
-    const venue = await createVenue(req.body);
-    res.status(201).json(venue);
-  } catch (err) {
-    next(err);
-  }
+venueRouter.post('/', requireAdmin, validateBody(CreateVenueRequestSchema), async (req, res) => {
+  const venue = await createVenue(req.body);
+  res.status(201).json(venue);
 });
 
 /**
@@ -62,13 +54,9 @@ venueRouter.post('/', requireAdmin, validateBody(CreateVenueRequestSchema), asyn
  *       204: { description: Venue deleted }
  *       404: { description: Venue not found }
  */
-venueRouter.delete<{ id: string }>('/:id', requireAdmin, async (req, res, next) => {
-  try {
-    await removeVenue(req.params.id);
-    res.status(204).send();
-  } catch (err) {
-    next(err);
-  }
+venueRouter.delete<{ id: string }>('/:id', requireAdmin, async (req, res) => {
+  await removeVenue(req.params.id);
+  res.status(204).send();
 });
 
 /**
@@ -98,13 +86,9 @@ venueRouter.delete<{ id: string }>('/:id', requireAdmin, async (req, res, next) 
 venueRouter.post<{ id: string }>(
   '/:id/seat-assistant',
   validateBody(SeatAssistantRequestSchema),
-  async (req, res, next) => {
-    try {
-      const result = await findSeatsFromNaturalLanguage(req.params.id, req.body.prompt);
-      res.json(result);
-    } catch (err) {
-      next(err);
-    }
+  async (req, res) => {
+    const result = await findSeatsFromNaturalLanguage(req.params.id, req.body.prompt);
+    res.json(result);
   },
 );
 
@@ -128,13 +112,9 @@ venueRouter.post<{ id: string }>(
  *           application/json:
  *             schema: { $ref: '#/components/schemas/Error' }
  */
-venueRouter.get<{ id: string }>('/:id', async (req, res, next) => {
-  try {
-    const status = await getVenueStatus(req.params.id);
-    res.json(status);
-  } catch (err) {
-    next(err);
-  }
+venueRouter.get<{ id: string }>('/:id', async (req, res) => {
+  const status = await getVenueStatus(req.params.id);
+  res.json(status);
 });
 
 /**
@@ -171,12 +151,8 @@ venueRouter.get<{ id: string }>('/:id', async (req, res, next) => {
 venueRouter.post<{ id: string }>(
   '/:id/best-seats',
   validateBody(BestSeatsRequestSchema),
-  async (req, res, next) => {
-    try {
-      const result = await getBestSeats(req.params.id, req.body.partySize);
-      res.json(result);
-    } catch (err) {
-      next(err);
-    }
+  async (req, res) => {
+    const result = await getBestSeats(req.params.id, req.body.partySize);
+    res.json(result);
   },
 );

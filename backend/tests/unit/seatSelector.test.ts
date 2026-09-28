@@ -15,7 +15,7 @@ describe('rowToIndex', () => {
   });
 });
 
-describe('findBestSeats — documented examples from README-BE.md', () => {
+describe('findBestSeats — worked examples', () => {
   it('picks A6 as the single best seat in a 10x12 venue with all seats open', () => {
     const venue = buildVenue(10, 12);
     const result = findBestSeats(venue, 1);

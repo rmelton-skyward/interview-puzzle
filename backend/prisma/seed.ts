@@ -1,8 +1,7 @@
 import { prisma } from '../src/db/client.js';
 
 /**
- * Seeds a single sample venue matching the worked examples in README-BE.md (10 rows x 12 columns),
- * plus a larger 10x50 venue matching the exact input example from the spec.
+ * Seeds a 10x12 Main Hall and a larger 10x50 Large Arena for local development.
  */
 async function main() {
   await prisma.bookingSeat.deleteMany();
