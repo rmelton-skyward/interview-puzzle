@@ -198,7 +198,7 @@ export default function ManageVenue({
                                 <div className="delete-venue-actions">
                                     {isDeleteConfirmationOpen ? (
                                         <div className="delete-confirmation" role="group" aria-label="Confirm venue deletion">
-                                            {/* <span>Confirm?</span> */}
+                                            <span>Confirm?</span>
                                             <button
                                                 type="button"
                                                 onClick={async () => {
